@@ -82,21 +82,21 @@ house_price_wages.iloc[11:12, 2:4] = house_price_wages.iloc[10:11, 2:4] * 1.02
 # Took previous figure and added 2% for  inflation figure to add in missing value
 
 
-# Looked to plot correlation between Average Annual House price and average annual salary 2010-2020
-# Best way for me to do this was to show both house price and wages on same plot with same X axis of year
-# plt.style.use('ggplot')
-# fig, ax = plt.subplots()
-# ax.plot(house_price_wages['year'], house_price_wages['SALE_PRICE'], color='blue', linestyle='--',
-#         marker='<')
-# ax.set_xlabel('Year')
-# ax.set_ylabel('Average Yearly House Sell Price IRE', color='blue')
-# ax.tick_params('y', color='blue')
-# ax2 = ax.twinx()
-# ax2.plot(house_price_wages['year'], house_price_wages['Average Annual Salary'], color='red', linestyle='--',
-#          marker='<')
-# ax2.set_ylabel('Average Annual Salary IRE', color='red')
-# ax2.tick_params('y', color='red')
-# plt.title('Avg House Price:Avg Salary 10:21')
+Looked to plot correlation between Average Annual House price and average annual salary 2010-2020
+Best way for me to do this was to show both house price and wages on same plot with same X axis of year
+plt.style.use('ggplot')
+fig, ax = plt.subplots()
+ax.plot(house_price_wages['year'], house_price_wages['SALE_PRICE'], color='blue', linestyle='--',
+        marker='<')
+ax.set_xlabel('Year')
+ax.set_ylabel('Average Yearly House Sell Price IRE', color='blue')
+ax.tick_params('y', color='blue')
+ax2 = ax.twinx()
+ax2.plot(house_price_wages['year'], house_price_wages['Average Annual Salary'], color='red', linestyle='--',
+         marker='<')
+ax2.set_ylabel('Average Annual Salary IRE', color='red')
+ax2.tick_params('y', color='red')
+plt.title('Avg House Price:Avg Salary 10:21')
 
 # Wanted to see the change up or down in house price increase or decrease and salary increase or
 # decrease over the years
