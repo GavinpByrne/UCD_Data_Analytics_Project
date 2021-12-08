@@ -29,9 +29,12 @@ print(df.describe())
 
 print(df.sort_values('SALE_PRICE', ascending=False))  # To check highest value property
 d18 = df['POSTAL_CODE'].isin(['Dublin 18'])
-print(df[d18])  # Just to double check data is pulling through correctly - Sorted CSV D18 homes verses Dataframe
-print(
-    df.isnull().sum())  # check column nullsprint(df['PROPERTY_SIZE_DESC'].isnull().sum())# a lot of nulls in this column
+print(df[d18])  # Just to double check data is pulling through correctly -
+# Sorted CSV D18 homes verses Dataframe
+
+print(df.isnull().sum())    #  check column nulls
+print(df['PROPERTY_SIZE_DESC'].isnull().sum()) # a lot of nulls in this column
+
 df['PROPERTY_SIZE_DESC'].fillna('No Available Data', inplace=True)  # As so many nulls replaced with string data
 print(df['PROPERTY_SIZE_DESC'].isnull().sum())  # Nulls removed
 df['POSTAL_CODE'].fillna('No_Postal_Code', inplace=True)  # As Above replaced with String data
@@ -163,4 +166,4 @@ def county_sale_price(x, y):
 
 # print(county_sale_price('Dublin', 500000))# Run this separately
 plt.show()
-#next add sale price over time by county
+# next add sale price over time by county
