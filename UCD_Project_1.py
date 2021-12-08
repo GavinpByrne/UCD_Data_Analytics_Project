@@ -1,3 +1,5 @@
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,8 +34,8 @@ d18 = df['POSTAL_CODE'].isin(['Dublin 18'])
 print(df[d18])  # Just to double check data is pulling through correctly -
 # Sorted CSV D18 homes verses Dataframe
 
-print(df.isnull().sum())    #  check column nulls
-print(df['PROPERTY_SIZE_DESC'].isnull().sum()) # a lot of nulls in this column
+print(df.isnull().sum())  # check column nulls
+print(df['PROPERTY_SIZE_DESC'].isnull().sum())  # a lot of nulls in this column
 
 df['PROPERTY_SIZE_DESC'].fillna('No Available Data', inplace=True)  # As so many nulls replaced with string data
 print(df['PROPERTY_SIZE_DESC'].isnull().sum())  # Nulls removed
@@ -142,8 +144,6 @@ ax1.pie(df2, explode=explode, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 plt.title('%New Verses SecondHand Homes Sold')
 
-
-
 '''
 Wanted to be able to Visualise Sale price 
 by County depending on price so used a function for this purpose
@@ -155,7 +155,7 @@ def county_sale_price(x, y):
     by_county = df[(df['COUNTY'] == x) & (df['SALE_PRICE'] > y)]
     hue_colours = {1: 'red', 0: 'black'}
     sns.set_theme(style='whitegrid')
-    sns.scatterplot(x=by_county['year'], y=by_county['SALE_PRICE'], hue=by_county['IF_MARKET_PRICE'],
+    sns.lineplot(x=by_county['year'], y=by_county['SALE_PRICE'], hue=by_county['IF_MARKET_PRICE'],
                     palette=hue_colours, hue_order=(0, 1))
     plt.xlabel('Year')
     plt.ylabel('Sale_Price')
@@ -180,17 +180,16 @@ sns.set_theme(style="darkgrid")
 sns.set_palette('bright')
 hue_colors = {0: 'black', 1: 'red'}
 f, ax = plt.subplots(figsize=(7, 5))
-sns.countplot(x='Month',  data=df)
+sns.countplot(x='Month', data=df)
 plt.xticks(rotation=90)
 plt.title('Count Of Sales by Month')
 
-
-
 # Wanted to use Numpy to look at different statistics of the data. Pivot table was handy for this.
 pivot = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.median)  # get median sale price by year
-pivot_2 = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.mean) # get mean sale price by year
-pivot_3 = df.pivot_table(values='ADDRESS', index='COUNTY', aggfunc=np.count_nonzero) # Count no of counties by year
-pivot_4 = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.std) # Get standard deviation on Sales price by year
+pivot_2 = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.mean)  # get mean sale price by year
+pivot_3 = df.pivot_table(values='ADDRESS', index='COUNTY', aggfunc=np.count_nonzero)  # Count no of counties by year
+pivot_4 = df.pivot_table(values='SALE_PRICE', index=df['year'],
+                         aggfunc=np.std)  # Get standard deviation on Sales price by year
 print(pivot)
 print(pivot_2)
 print(pivot_3)
@@ -217,6 +216,5 @@ df3.reset_index(level=0, inplace=True)
 print(df3)
 sns.set_style('whitegrid')
 sns.set_palette('bright')
-sns.lmplot(data=df3, x='Number_Sales_Per_Year', y='Average_House_Price', truncate=True,  fit_reg=True)
+sns.lmplot(data=df3, x='Number_Sales_Per_Year', y='Average_House_Price', truncate=True, fit_reg=True)
 plt.show()
-
