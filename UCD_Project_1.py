@@ -1,5 +1,4 @@
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -134,7 +133,7 @@ plt.title('New_Home_Sales Verses 2nd Hand')
 df2 = df['New_Home'].value_counts()
 print(df2)
 
-# to show overall % of new verses secondhand
+#to show overall % of new verses secondhand
 sns.set_theme(style="darkgrid")
 labels = '2nd Hand Home', 'New_home'
 explode = (0, 0.1)
@@ -151,20 +150,20 @@ also wanted to see if market price met
 '''
 
 
-def county_sale_price(x, y):
-    by_county = df[(df['COUNTY'] == x) & (df['SALE_PRICE'] > y)]
+def county_sale_price(x):
+    by_county = df[(df['COUNTY'] == x)]
     hue_colours = {1: 'red', 0: 'black'}
     sns.set_theme(style='whitegrid')
-    sns.lineplot(x=by_county['year'], y=by_county['SALE_PRICE'], hue=by_county['IF_MARKET_PRICE'],
-                    palette=hue_colours, hue_order=(0, 1))
+    sns.lineplot(x=by_county['year'], y=df['SALE_PRICE'], hue=by_county['IF_MARKET_PRICE'],
+                 palette=hue_colours, hue_order=(0, 1))
     plt.xlabel('Year')
     plt.ylabel('Sale_Price')
-    plt.title(f'Sales for {x} greater than {y}')
+    plt.title(f'Sales for {x} by year')
 
     return by_county, plt.show()
 
 
-# print(county_sale_price('Dublin', 500000))# Run this separately
+#print(county_sale_price('Dublin'))# Run this separately
 ## Want to look at which months over the course of the 11 years had highest sales.
 # used line plot for this with Year as Hue. I needed to parse month name so I  used pd.to_datetime.
 # Found str.slice() on google which enabled reduction of month name to three
