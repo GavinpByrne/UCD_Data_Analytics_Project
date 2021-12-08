@@ -163,3 +163,4 @@ def county_sale_price(x, y):
 
 # print(county_sale_price('Dublin', 500000))# Run this separately
 plt.show()
+#next add sale price over time by county
