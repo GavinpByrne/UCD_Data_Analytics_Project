@@ -175,7 +175,7 @@ df['Month'] = pd.to_datetime(df['Month'], format='%m').dt.month_name().str.slice
 
 sns.set_theme(style='darkgrid')
 sns.relplot(x=df['Month'], y='SALE_PRICE', data=df, kind='line', hue=df['year'], style='year')
-# To show that house price higher in summer but more houses sold in winter
+# To show that house price higher in summer abnd Nov-Dec and more sold in those periods
 sns.set_theme(style="darkgrid")
 sns.set_palette('bright')
 hue_colors = {0: 'black', 1: 'red'}
