@@ -175,7 +175,7 @@ df['Month'] = pd.to_datetime(df['Month'], format='%m').dt.month_name().str.slice
 
 sns.set_theme(style='darkgrid')
 sns.relplot(x=df['Month'], y='SALE_PRICE', data=df, kind='line', hue=df['year'], style='year')
-# To show that house price higher in summer abnd Nov-Dec and more sold in those periods
+# To show that house price higher in summer and Nov-Dec and more sold in those periods
 sns.set_theme(style="darkgrid")
 sns.set_palette('bright')
 hue_colors = {0: 'black', 1: 'red'}
@@ -184,7 +184,7 @@ sns.countplot(x='Month',  data=df)
 plt.xticks(rotation=90)
 plt.title('Count Of Sales by Month')
 
-plt.show()
+
 
 # Wanted to use Numpy to look at different statistics of the data. Pivot table was handy for this.
 pivot = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.median)  # get median sale price by year
@@ -204,3 +204,19 @@ print(pivot_4)
 #         assert isinstance(df, object)
 #         df.loc[i, 'POSTAL_CODE'] = df.loc[i, 'COUNTY']
 # print(df['POSTAL_CODE'])
+
+# Built a lmplot to show number of sales per year Verses average Sale price by year
+avg_sale_per_year = df.groupby('year')['SALE_PRICE'].mean()
+count_county_sales_per_year = df.groupby('year')['COUNTY'].count()
+df1 = pd.DataFrame(avg_sale_per_year)
+df2 = pd.DataFrame(count_county_sales_per_year)
+df1.columns = ['Average_House_Price']
+df2.columns = ['Number_Sales_Per_Year']
+df3 = df1.merge(df2, on='year', how='inner')
+df3.reset_index(level=0, inplace=True)
+print(df3)
+sns.set_style('whitegrid')
+sns.set_palette('bright')
+sns.lmplot(data=df3, x='Number_Sales_Per_Year', y='Average_House_Price', truncate=True,  fit_reg=True)
+plt.show()
+
