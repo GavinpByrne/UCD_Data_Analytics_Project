@@ -165,5 +165,24 @@ def county_sale_price(x, y):
 
 
 # print(county_sale_price('Dublin', 500000))# Run this separately
+## Want to look at which months over teh course of the 11 years where sales go up to identify future bottle necks
+# used line plot for this with Year as Hue. I needed to parse month name so I again used pd.DatetimeIndex.
+# Found str.slice() on google which enabled reduction of month name to three
+
+df['Month'] = pd.DatetimeIndex(df['SALE_DATE']).month
+df['Month'] = pd.to_datetime(df['Month'], format='%m').dt.month_name().str.slice(stop=3)
+# print(df['Month'])
+
+sns.set_theme(style='darkgrid')
+sns.relplot(x=df['Month'], y='SALE_PRICE', data=df, kind='line', hue=df['year'], style='year')
 plt.show()
-# next add sale price over time by county
+
+# Wanted to use Numpy to look at different statistics of the data. Pivot table was handy for this.
+pivot = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.median)  # get median sale price by year
+pivot_2 = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.mean) # get mean sale price by year
+pivot_3 = df.pivot_table(values='ADDRESS', index='COUNTY', aggfunc=np.count_nonzero) # Count no of counties by year
+pivot_4 = df.pivot_table(values='SALE_PRICE', index=df['year'], aggfunc=np.std) # Get standard deviation on Sales price by year
+print(pivot)
+print(pivot_2)
+print(pivot_3)
+print(pivot_4)
