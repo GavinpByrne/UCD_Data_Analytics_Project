@@ -82,8 +82,8 @@ house_price_wages.iloc[11:12, 2:4] = house_price_wages.iloc[10:11, 2:4] * 1.02
 # Took previous figure and added 2% for  inflation figure to add in missing value
 
 
-Looked to plot correlation between Average Annual House price and average annual salary 2010-2020
-Best way for me to do this was to show both house price and wages on same plot with same X axis of year
+# Looked to plot correlation between Average Annual House price and average annual salary 2010-2020
+# Best way for me to do this was to show both house price and wages on same plot with same X axis of year
 plt.style.use('ggplot')
 fig, ax = plt.subplots()
 ax.plot(house_price_wages['year'], house_price_wages['SALE_PRICE'], color='blue', linestyle='--',
@@ -186,3 +186,12 @@ print(pivot)
 print(pivot_2)
 print(pivot_3)
 print(pivot_4)
+
+# Want to change the Postal_COde column if empty to match County. Used itterows. Left commented out as found very slow.
+# I know better ways of doing it such as apply and loc. Left in due to course requiremnet
+# r: Series
+# for i, r in df.iterrows():
+#     if df.loc[i, 'POSTAL_CODE'] == 'No_Postal_Code':
+#         assert isinstance(df, object)
+#         df.loc[i, 'POSTAL_CODE'] = df.loc[i, 'COUNTY']
+# print(df['POSTAL_CODE'])
