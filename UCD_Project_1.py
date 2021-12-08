@@ -65,7 +65,7 @@ wages_dict = {2000: 36754, 2001: 38067, 2002: 38384, 2003: 39617, 2004: 40946, 2
               2014: 46973, 2015: 46965, 2016: 47641, 2017: 48203, 2018: 48412, 2019: 49332, 2020: 49296}
 # # taken from https://www.statista.com/statistics/416212/average-annual-wages-ireland-y-on-y-in-euros/
 #
-for key, value in wages_dict.items():  # parse out key-values
+for key, value in wages_dict.items():  # itterate out key-values
     print(key, value)
 wages_items = wages_dict.items()
 wages_list = list(wages_items)  # Change from dictionary to list
@@ -113,7 +113,7 @@ ax.set_ylabel('% Difference')
 ax.set_title('House Price Growth Verses Salary Growth By Year%')
 plt.legend()
 
-# Wanted to add a new Column to give simple Bolean value to Visualise New verses second hand home
+# Wanted to add a new Column to give simple Boolean value to Visualise New verses second hand home
 df['New_Home'] = df['PROPERTY_DESC'].apply(lambda x: True if x == 'New Dwelling house /Apartment' else False)
 
 print(df.head())
@@ -128,7 +128,7 @@ plt.xticks(rotation=90)
 plt.title('New_Home_Sales Verses 2nd Hand')
 
 # To show how big a gap there is overall I used Pie chart to show lack of new home sales with new column
-# Ne_Home as basis for data
+# New_Home as basis for data
 df2 = df['New_Home'].value_counts()
 print(df2)
 
@@ -165,8 +165,8 @@ def county_sale_price(x, y):
 
 
 # print(county_sale_price('Dublin', 500000))# Run this separately
-## Want to look at which months over teh course of the 11 years where sales go up to identify future bottle necks
-# used line plot for this with Year as Hue. I needed to parse month name so I again used pd.DatetimeIndex.
+## Want to look at which months over the course of the 11 years had highest sales.
+# used line plot for this with Year as Hue. I needed to parse month name so I  used pd.to_datetime.
 # Found str.slice() on google which enabled reduction of month name to three
 
 df['Month'] = pd.DatetimeIndex(df['SALE_DATE']).month
@@ -175,6 +175,15 @@ df['Month'] = pd.to_datetime(df['Month'], format='%m').dt.month_name().str.slice
 
 sns.set_theme(style='darkgrid')
 sns.relplot(x=df['Month'], y='SALE_PRICE', data=df, kind='line', hue=df['year'], style='year')
+# To show that house price higher in summer but more houses sold in winter
+sns.set_theme(style="darkgrid")
+sns.set_palette('bright')
+hue_colors = {0: 'black', 1: 'red'}
+f, ax = plt.subplots(figsize=(7, 5))
+sns.countplot(x='Month',  data=df)
+plt.xticks(rotation=90)
+plt.title('Count Of Sales by Month')
+
 plt.show()
 
 # Wanted to use Numpy to look at different statistics of the data. Pivot table was handy for this.
@@ -187,7 +196,7 @@ print(pivot_2)
 print(pivot_3)
 print(pivot_4)
 
-# Want to change the Postal_COde column if empty to match County. Used itterows. Left commented out as found very slow.
+# Want to change the Postal_Code column if empty to match County. Used itterows. Left commented out as found very slow.
 # I know better ways of doing it such as apply and loc. Left in due to course requiremnet
 # r: Series
 # for i, r in df.iterrows():
